@@ -5,7 +5,7 @@ In short, Ezqueue is a Node.js web app that brings EasyNews Global Search togeth
 
 The end result is a simple Web page hosted on your HTPC that will let you search Easynews + download directly to the HTPC and finally rename/move those downloads to directories for use by other software. (e.g. XBMC, etc...) It's actually awesome and I appreciate that a lot of HTPC users won't appreciate it.
 
-Installation
+Installation 
 =======
 
 Requirements
