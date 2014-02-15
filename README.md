@@ -36,7 +36,7 @@ set PATH=%PATH%;C:\Program Files\nodejs;%CWD%\node_modules\.bin
 
 6) Type "env.bat".
 
-7) Type "npm install". This will download all the Node.js supporting packages. (I tested this as of 02-15-2014)
+7) Type "npm install". This will download all the Node.js supporting packages. (I tested this as of 02-15-2014) 
 
 8) For some reason, "npm install" wouldn't include mkdirp when I tested these instructions. Run this for good measure:
 
