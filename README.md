@@ -29,7 +29,7 @@ Installation
 4) Edit env.bat, make sure the location of your installed Node.js directory is right. (e.g. C:\Program Files\nodejs) Ignore the node_modules\.bin part.
 
 ```
-set PATH=%PATH%;C:\Program Files\nodejs;%CWD%\node_modules\.bin
+set PATH=%PATH%;C:\Program Files\nodejs;%CWD%\node_modules\.bin 
 ```
 
 5) Open cmd.exe and cd to your ezqueue directory. (e.g. cd C:\ezqueue)
