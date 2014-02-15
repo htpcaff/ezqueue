@@ -10,41 +10,41 @@ Installation
 
 *Requirements*
 
-1. An Easynew account. (http://www.easynews.com/) They offer a trial if you're cheap. If you don't know who thy are, how did you find this project?!?
+1) An Easynew account. (http://www.easynews.com/) They offer a trial if you're cheap. If you don't know who thy are, how did you find this project?!?
 
-2. Download and install the Free Download Manager (http://www.freedownloadmanager.org/) which includes a separate "Remote Control Server" you can run that serves up a web page for pasting in URLs to queue for download, viewing downloads in progress, and viewing completed downloads.
+2) Download and install the Free Download Manager (http://www.freedownloadmanager.org/) which includes a separate "Remote Control Server" you can run that serves up a web page for pasting in URLs to queue for download, viewing downloads in progress, and viewing completed downloads.
 
-	1.1. After installing FDM, open the Start menu and type "FDM remote control server". Click the "e" icon in your system tray. Check "Load on startup", note the port and "Protect access to server" with a username and password.
+	1.1) After installing FDM, open the Start menu and type "FDM remote control server". Click the "e" icon in your system tray. Check "Load on startup", note the port and "Protect access to server" with a username and password.
 
-	1.2. Try using it by clicking "Open in browser" so you get an idea of what Ezqueue is working with.
+	1.2) Try using it by clicking "Open in browser" so you get an idea of what Ezqueue is working with.
 
 *Installing Ezqueue*
 
-1. Download the "Download ZIP" from this Github project.
+1) Download the "Download ZIP" from this Github project.
 
-2. Unzip it some place appropriate. e.g. C:\ezqueue
+2) Unzip it some place appropriate. e.g. C:\ezqueue
 
-3. Download and install Node.js (http://nodejs.org/) for Windows. (I'm still targeting Windows here)
+3) Download and install Node.js (http://nodejs.org/) for Windows. (I'm still targeting Windows here)
 
-4. Edit env.bat, make sure the location of your installed Node.js directory is right. (e.g. C:\Program Files\nodejs) Ignore the node_modules\.bin part.
+4) Edit env.bat, make sure the location of your installed Node.js directory is right. (e.g. C:\Program Files\nodejs) Ignore the node_modules\.bin part.
 
 ```
 set PATH=%PATH%;C:\Program Files\nodejs;%CWD%\node_modules\.bin
 ```
 
-5. Open cmd.exe and cd to your ezqueue directory. (e.g. cd C:\ezqueue)
+5) Open cmd.exe and cd to your ezqueue directory. (e.g. cd C:\ezqueue)
 
-6. Type "env.bat".
+6) Type "env.bat".
 
-7. Type "npm install". This will download all the Node.js supporting packages. (I tested this as of 02-15-2014)
+7) Type "npm install". This will download all the Node.js supporting packages. (I tested this as of 02-15-2014)
 
-8. For some reason, "npm install" wouldn't include mkdirp when I tested these instructions. Run this for good measure:
+8) For some reason, "npm install" wouldn't include mkdirp when I tested these instructions. Run this for good measure:
 
 ```
 npm install mkdirp
 ```
 
-9. Edit app.js and change the following settings to your own:
+9) Edit app.js and change the following settings to your own:
 
 ```
 var username = "username"; // EasyNews account username
@@ -75,7 +75,7 @@ var defaultDestinations = { // Target directories where downloads can be moved t
 };
 ```
 
-10. Type rollup.bat to start the service. You should see "Express server listening on port 3000".
+10) Type rollup.bat to start the service. You should see "Express server listening on port 3000".
 
 First time use
 =======
@@ -135,36 +135,36 @@ The next step was to decide how and where a component could sit that would help 
 
 The ezqueue Node.js app is basically a web application server that's dedicated to serving web pages that proxy your search requests through it to Easynews servers. The app is intended to be installed on a Windows HTPC or any platform server really, though it works with FDM which is Windows only. You could run ezqueue on a Linux server and have it queue to FDM on a Windows PC, but that would be a bit redundant. The code is here for you to modify.
 
-1. Listens for HTTP on port 3000 (by default)
+1) Listens for HTTP on port 3000 (by default)
 
-2. Serves up Web pages for /ezquery (e.g. http://htpc.atyourhome:3000/ezquery) that support:
+2) Serves up Web pages for /ezquery (e.g. http://htpc.atyourhome:3000/ezquery) that support:
 
-	2.1. Searching "Easynews Global Search" files complete with thumbnail and preview image download and caching. Each search result can be queued (a cloud icon) to the FDM via its Remote Control Server.
+	2.1) Searching "Easynews Global Search" files complete with thumbnail and preview image download and caching. Each search result can be queued (a cloud icon) to the FDM via its Remote Control Server.
 	
-	2.2. A Progress page which dynamically updates a list of downloads in progress. When a download is complete, it is removed from the list.
+	2.2) A Progress page which dynamically updates a list of downloads in progress. When a download is complete, it is removed from the list.
 	
-	2.3. A Complete page which shows completed downloads. The files can be renamed and moved to any directory on the PC, though a set of default directories are provided.
+	2.3) A Complete page which shows completed downloads. The files can be renamed and moved to any directory on the PC, though a set of default directories are provided.
 
 Even with its current flaws and bugs, it's actually been reliable!
 
 Known Issues
 =======
 
-1. The MonkeyTime.js Ajax calls to app.js should be tweaked to be more responsive. When the Progress page loads, or a download is queued, the app.js request should start faster.
+1) The MonkeyTime.js Ajax calls to app.js should be tweaked to be more responsive. When the Progress page loads, or a download is queued, the app.js request should start faster.
 
-2. Noticed that items in Completed were still being downloaded and under the Progress list. Note sure why this was.
+2) Noticed that items in Completed were still being downloaded and under the Progress list. Note sure why this was.
 
-3. Some CSS bugs. The Web app is supposed to be responsive but it's the first time I've bothered to support iPads, iPhone and laptop PCs from the same web page.
+3) Some CSS bugs. The Web app is supposed to be responsive but it's the first time I've bothered to support iPads, iPhone and laptop PCs from the same web page.
 
 Future Stuff
 =======
 
-1. Support for advanced searches. Choosing file type, asc/dsc by value (sort desc by date), select max search items to display, paging large list of search items.
+1) Support for advanced searches. Choosing file type, asc/dsc by value (sort desc by date), select max search items to display, paging large list of search items.
 
-2. Search query page should remember last X searches, and support a search "watch list" for quickly searching previous searches that you're not done with.
+2) Search query page should remember last X searches, and support a search "watch list" for quickly searching previous searches that you're not done with.
 
-3. Augment search "watch list" with external data sources. (e.g. IMDB Charts, other release sources)
+3) Augment search "watch list" with external data sources. (e.g. IMDB Charts, other release sources)
 
-4. Add support for securing account info.
+4) Add support for securing account info.
 
-5. Add support for central external config file.
+5) Add support for central external config file.
