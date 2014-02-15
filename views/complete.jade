@@ -1,0 +1,94 @@
+extends layout
+
+block content
+	script(type="text/javascript").
+		$(document).ready(function() {
+			queryCompleted();
+			startComplete();
+			$('#completedModal').modal({show:false});
+		});
+	nav(class="navbar navbar-default", role="navigation")
+		div(class="col-lg-6 ez-nav-btns")
+				div(class="ez-navbar-title").
+					Complete
+				span(id="queueCount", class="badge queue-badge-left", style="display:none;")
+				a(href='/ezquery/l', class="btn btn-default")
+					span(class="glyphicon glyphicon-tasks")
+				a(href='/ezquery', class="btn btn-default pull-right")
+					span(class="glyphicon glyphicon-search")
+	div(id="alert")
+	table(id="progress")
+		tr
+			td
+				div(id="complete")
+					table(class="table table-striped table-condensed")
+						thead
+							tr
+								th.
+									Filename
+								th.
+									Size
+								th
+						tbody(id="completeItems")
+
+	div(class="modal fade", id="completedModal", tabindex="-1", role="dialog", aria-labelledby="completedModalLabel", aria-hidden="true")
+		div(class="modal-dialog")
+			div(class="modal-content")
+				form(id="completedForm", action="/ezquery/flm", method="post")
+					div(class="modal-header")
+						button(type="button", class="close", data-dismiss="modal", aria-hidden="true").
+							&times;
+						h4(class="modal-title", id="completedModalLabel").
+							Process downloaded file
+					div(class="modal-body")
+						form(role="form")
+							div(class="form-group")
+								input(type="checkbox", name="renamefile", id="renamefile", value="rename", checked=false, onclick="this.checked?$('#filename').prop('disabled', false):$('#filename').prop('disabled', true)")
+								label(for="filename").
+									Rename file
+								input(type="text", class="form-control", disabled=true, name="filename", id="filename", placeholder="")
+								input(type="hidden", name="filenameOrig", id="filenameOrig", value="")
+							div(class="form-group ez-tight-group")
+								input(type="checkbox", name="movefile", id="movefile", value="move", checked=false, onclick="this.checked?$('#filepath').prop('disabled', false):$('#filepath').prop('disabled', true)")
+								label(for="filepath").
+									Move file
+								input(type="text", class="form-control ez-tight-group-top", disabled=true, name="filepath", id="filepath", placeholder="")
+							if destinations != undefined
+							div(class="form-group ez-tight-group")
+								div(class="filenav")
+									- for(var key in destinations) {
+										- var destination = destinations[key];
+										div(class="root-path", data-path=destination.path)
+											mixin collapseDiv(destination.tree.children)
+											a(href='#', class="path-link", onclick="setMovePath(this, '"+destination.path+"')")
+												span=destination.name
+											- for(var i=0; i<destination.tree.children.length; i++) {
+												mixin filePath(destination.tree.children[i])
+											- }
+									- }
+
+					div(class="modal-footer")
+						button(type="button", class="btn btn-default", data-dismiss="modal").
+							Close
+						button(type="submit", class="btn btn-primary", onclick="$('#completedForm').submit();").
+							Save changes
+mixin filePath(child)
+	div(class="path path-collapsed", data-path=child.path)
+		mixin collapseDiv(child.children)
+		a(href='#', class="path-link", onclick="setMovePath(this, '"+child.path+"')")
+			span=child.name
+		if child.children != undefined
+			- for(var i=0; i<child.children.length; i++) {
+				mixin filePath(child.children[i])
+			- }
+
+mixin collapseDiv(children)
+	if children != undefined
+		if children.length > 0
+			a(href='#', onclick='collapse(this)')
+				div(class="path-clps-col glyphicon glyphicon-collapse-down")
+		else
+			div(class="path-clps-col glyphicon glyphicon-minus")
+				span
+		
+		

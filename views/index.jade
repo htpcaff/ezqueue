@@ -1,0 +1,65 @@
+extends layout
+
+block content
+	script(type="text/javascript").
+		$(document).ready(function() {
+			$('search').click(function() {
+				var search = $('searchText').attr('value');
+				queryEz(search);
+			});
+			startQueue();
+			$('.panel-collapse').on('shown.bs.collapse', function () {
+				// This will be the collapsed element
+				var thumb = $(this).find('.ez-item-thumb');
+				var itemID = $(this).find('.ez-item-id').attr("value");
+				setEzThumb(thumb, itemID);
+			});
+		});
+	nav(class="navbar navbar-default", role="navigation")
+		form(class="navbar-form navbar-left", role="search", action="/ezquery", method="post")
+			div(class="col-lg-6")
+				div(class="input-group")
+					input(id="seatchText", name="searchText", type="text", class="form-control", value=subject==undefined?"":subject, placeholder="Search")
+					input(id="searchType", name="searchType", type="hidden", value="VIDEO")
+					div(class="input-group-btn")
+						button(type="submit", class="btn btn-default")
+							span(class="glyphicon glyphicon-search")
+						a(href='/ezquery/l', class="btn btn-default")
+							span(class="glyphicon glyphicon-tasks")
+						span(id="queueCount", class="badge queue-badge-right", style="display:none;")
+						a(href='/ezquery/fl', class="btn btn-default")
+							span(class="glyphicon glyphicon-file")
+	div(id="alert")
+	div(id="results")
+		if(items != undefined)
+			div(class="panel-group", id="accordion")
+			- var i=0;
+			- items.forEach(function(item) {
+				div(class="panel panel-default ez-list-item")
+					a(class="ez-item-link", data-toggle="collapse", data-parent="#accordion", href="#item"+i)
+						div(class="panel-heading")
+							h4(class="panel-title")=item.itemTitle
+					div(id="item"+i, class="panel-collapse collapse")
+						input(id="itemID"+i, name="itemID"+i, class="ez-item-id", type="hidden", value=item.ID)
+						div(class="ez-panel-body", lass="panel-body")
+							a(href='#', class="ez-dl-btn btn btn-default", onclick="queueEz(this, '"+item.link+"');")
+									span(class="glyphicon glyphicon-cloud-download")
+							p
+								strong.
+									Date:&nbsp;
+								span=item.date
+									br
+								strong.
+									Size:&nbsp;
+								span=item.enclosures[0].length
+							img(src="", class="ez-item-thumb")
+				- i += 1;
+			- })
+		else
+			//p.
+			div
+				//No query results.
+		
+<a href="
+
+
